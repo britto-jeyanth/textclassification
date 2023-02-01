@@ -34,11 +34,11 @@ def main(myblob: func.InputStream):
     with io.BytesIO(blob_bytes) as open_pdf_file:
         read_pdf = PyPDF2.PdfReader(open_pdf_file)
 
-        logging.info(read_pdf.numPages)
+        logging.info(len(read_pdf.pages))
 
         # Extract each page and write out to individual files
         # pdf_list = []
-        for i in range(read_pdf.numPages):
+        for i in range(len(read_pdf.pages)):
             output = PyPDF2.PdfFileWriter()
             output.addPage(read_pdf.getPage(i))
             
