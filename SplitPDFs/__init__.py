@@ -17,10 +17,6 @@ def main(myblob: func.InputStream):
                  f"----- Blob Size: {myblob.length} bytes")
 
     
-    fileReader = PyPDF2.PdfFileReader(blob_to_read)
-
-    logging.info(fileReader.numPages)
-
     # Convert file content to bytes
     blob_bytes = myblob.read()
 
@@ -37,6 +33,8 @@ def main(myblob: func.InputStream):
     # Open multi-page PDF file
     with io.BytesIO(blob_bytes) as open_pdf_file:
         read_pdf = PyPDF2.PdfFileReader(open_pdf_file)
+
+        logging.info(read_pdf.numPages)
 
         # Extract each page and write out to individual files
         # pdf_list = []
