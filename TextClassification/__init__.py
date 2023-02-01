@@ -8,7 +8,7 @@ import datetime
 import azure.functions as func
 from azure.storage.blob import BlobServiceClient
 from azure.ai.formrecognizer import DocumentAnalysisClient
-
+from azure.core.credentials import AzureKeyCredential
 
 def main(myblob: func.InputStream):
     logging.info(f"--- Python blob trigger function processed blob \n"
