@@ -24,7 +24,7 @@ def main(myblob: func.InputStream):
     dt = datetime.datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
 
     # Extract original PDF file name
-    pdf_prefix_file_name = ''.join(myblob.name.split('.pdf')[:1]) + '_'
+    pdf_prefix_file_name = ''.join(myblob.name.split('.pdf')[:1])
     pdf_prefix_file_name = pdf_prefix_file_name[14:]
     logging.info(f"File Prefix: {pdf_prefix_file_name}")
 
