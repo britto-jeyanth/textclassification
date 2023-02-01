@@ -39,7 +39,7 @@ def main(myblob: func.InputStream):
         # Extract each page and write out to individual files
         # pdf_list = []
         for i in range(len(read_pdf.pages)):
-            output = PyPDF2.PdfFileWriter()
+            output = PyPDF2.PdfWriter()
             output.addPage(read_pdf.getPage(i))
             
             # Temporarily write PDF to disk
