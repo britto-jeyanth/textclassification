@@ -1,0 +1,13 @@
+{
+  "scriptFile": "__init__.py",
+  "disabled": false,
+  "bindings": [
+      {
+          "name": "myblob",
+          "type": "blobTrigger",
+          "direction": "in",
+          "path": "pdf-documents/{name}",
+          "connection":"test9d40_STORAGE"
+      }
+  ]
+}
