@@ -6,7 +6,7 @@
           "name": "myblob",
           "type": "blobTrigger",
           "direction": "in",
-          "path": "pdf-documents/{name}.pdf",
+          "path": "pdf-documents-single/{name}.pdf",
           "connection":"test9d40_STORAGE"
       }
   ]
