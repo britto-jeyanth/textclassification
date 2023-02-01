@@ -41,9 +41,19 @@ def main(myblob: func.InputStream):
 
         logging.info(len(read_pdf.pages))
 
-        poller = document_analysis_client.begin_analyze_document(
-                "MedicalDocExtractionNeural", document=read_pdf
-            )
+        output = PyPDF2.PdfWriter()
+        output.add_page(read_pdf.pages[0])
+        
+        # Temporarily write PDF to disk
+        temp_pdf_fn = pdf_prefix_file_name +'_'+ str(i + 1)+ str(".pdf")
+        temp_pdf_fp = os.path.join(HOME_LOCAL_DIR, temp_pdf_fn)
+        with open(temp_pdf_fp, "wb") as outputStream:
+            output.write(outputStream)
+
+        with open(temp_pdf_fp, 'rb') as temp_pdf_file:
+            poller = document_analysis_client.begin_analyze_document(
+                    "MedicalDocExtractionNeural", document=temp_pdf_file
+                )
         result = poller.result()
         
         d = [page.to_dict() for page in result.documents]
