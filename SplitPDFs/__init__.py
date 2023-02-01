@@ -32,7 +32,7 @@ def main(myblob: func.InputStream):
     
     # Open multi-page PDF file
     with io.BytesIO(blob_bytes) as open_pdf_file:
-        read_pdf = PyPDF2.PdfFileReader(open_pdf_file)
+        read_pdf = PyPDF2.PdfReader(open_pdf_file)
 
         logging.info(read_pdf.numPages)
 
