@@ -40,7 +40,7 @@ def main(myblob: func.InputStream):
         # pdf_list = []
         for i in range(len(read_pdf.pages)):
             output = PyPDF2.PdfWriter()
-            output.addPage(read_pdf.pages[i])
+            output.add_page(read_pdf.pages[i])
             
             # Temporarily write PDF to disk
             temp_pdf_fn = pdf_prefix_file_name +'_'+ str(i + 1)+ str(".pdf")
