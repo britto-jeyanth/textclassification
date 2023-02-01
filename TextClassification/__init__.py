@@ -45,7 +45,7 @@ def main(myblob: func.InputStream):
         output.add_page(read_pdf.pages[0])
         
         # Temporarily write PDF to disk
-        temp_pdf_fn = pdf_prefix_file_name +'_'+ str(i + 1)+ str(".pdf")
+        temp_pdf_fn = pdf_prefix_file_name + str(".pdf")
         temp_pdf_fp = os.path.join(HOME_LOCAL_DIR, temp_pdf_fn)
         with open(temp_pdf_fp, "wb") as outputStream:
             output.write(outputStream)
