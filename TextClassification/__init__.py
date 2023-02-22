@@ -31,7 +31,7 @@ def main(myblob: func.InputStream):
 
     # Extract original PDF file name
     pdf_prefix_file_name = ''.join(myblob.name.split('.pdf')[:1])
-    pdf_prefix_file_name = pdf_prefix_file_name[21:]
+    pdf_prefix_file_name = pdf_prefix_file_name[29:]
     logging.info(f"File Prefix: {pdf_prefix_file_name}")
 
     # Establish HOME directory for writing/reading temporary files
