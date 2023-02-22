@@ -24,6 +24,9 @@ def main(myblob: func.InputStream):
         endpoint=endpoint, credential=AzureKeyCredential(key)
     )
 
+    connection_string = "DefaultEndpointsProtocol=https;AccountName=test9d40;AccountKey=VmVaBaq9MPu//AyWR/1o+q+BP1fidv4fdyuyHOSYAYybGbMNJIypAhslyd3eVdJL+xO4F+kG+2aR+AStEB6aTg==;EndpointSuffix=core.windows.net"
+    blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+
     blob_bytes = myblob.read()
 
     # Extract original PDF file name
@@ -59,6 +62,24 @@ def main(myblob: func.InputStream):
         d = [page.to_dict() for page in result.documents]
         logging.info(f"Result: {d}")
 
+        with open(os.path.join(HOME_LOCAL_DIR, "out.json"), "w") as outfile:
+            outfile.write(d)
+
+        if(d[0].get('fields').get('DateOfService').get('confidence')>=0.5) and (d[0].get('fields').get('Facility').get('confidence')>=0.5) and (d[0].get('fields').get('PatientName').get('confidence')>=0.5) and (d[0].get('fields').get('DateOfIncident').get('confidence')>=0.5) and (d[0].get('fields').get('TreatingProvider').get('confidence')>=0.5) and (d[0].get('fields').get('DateOfBirth').get('confidence')>=0.5):
+            blob_client = blob_service_client.get_blob_client(container="medical-entities", blob=temp_pdf_fn)
+            # Read back in the PDF to get the bytes-like version
+            temp_json_fp = os.path.join(HOME_LOCAL_DIR, "out.json")
+            with open(temp_json_fp, 'rb') as temp_json_file:
+                blob_client.upload_blob(temp_json_file)
+        else:
+            blob_client = blob_service_client.get_blob_client(container="medical-entities-review", blob=temp_pdf_fn)
+            # Read back in the PDF to get the bytes-like version
+            temp_json_fp = os.path.join(HOME_LOCAL_DIR, "out.json")
+            with open(temp_json_fp, 'rb') as temp_json_file:
+                blob_client.upload_blob(temp_json_file)
+
+            with open(temp_pdf_fp, 'rb') as temp_json_file:
+                blob_client.upload_blob(temp_json_file)
         # Extract each page and write out to individual files
         # pdf_list = []
         # for i in range(len(read_pdf.pages)):
